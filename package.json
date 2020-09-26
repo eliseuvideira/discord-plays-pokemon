@@ -1,0 +1,10 @@
+{
+  "name": "discord-plays",
+  "version": "0.1.0",
+  "main": "app/main/index.js",
+  "author": "Eliseu Videira <eliseuvideira1@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^10.1.2"
+  }
+}
