@@ -2,9 +2,11 @@ import React, { useContext, useState } from "react";
 import { Redirect } from "react-router-dom";
 import { ConfigContext } from "../context/config";
 import { Box, Button, FormControl, FormLabel, Input } from "@chakra-ui/core";
+import { ipcRenderer } from "electron";
 
 const Config = () => {
   const { config, setConfig } = useContext(ConfigContext);
+  const [loading, setLoading] = useState(false);
 
   const [fields, setFields] = useState({
     token: "",
@@ -15,11 +17,19 @@ const Config = () => {
   const onChange = (field) => (e) =>
     setFields({ ...fields, [field]: e.target.value });
 
-  const onSubmit = (e) => {
-    e.stopPropagation();
+  const onSubmit = async (e) => {
+    e.preventDefault();
 
-    if (fields.token && fields.serverId && fields.channelId) {
-      setConfig(fields);
+    setLoading(true);
+
+    try {
+      await ipcRenderer.invoke("discord-login", fields);
+
+      if (fields.token && fields.serverId && fields.channelId) {
+        setConfig(fields);
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -61,7 +71,7 @@ const Config = () => {
             onChange={onChange("channelId")}
           />
         </FormControl>
-        <Button mt={4} variantColor="teal" type="submit">
+        <Button mt={4} variantColor="teal" type="submit" isLoading={loading}>
           Submit
         </Button>
       </form>

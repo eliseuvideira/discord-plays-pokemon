@@ -8,10 +8,8 @@
     "@babel/core": "^7.11.6",
     "@babel/preset-react": "^7.10.4",
     "babel-loader": "^8.1.0",
-    "concurrently": "^5.3.0",
     "electron": "^10.1.2",
     "html-webpack-plugin": "^4.5.0",
-    "node-loader": "^1.0.1",
     "webpack": "^4.44.2",
     "webpack-cli": "^3.3.12"
   },
@@ -19,6 +17,7 @@
     "@chakra-ui/core": "^0.8.0",
     "@emotion/core": "^10.0.35",
     "@emotion/styled": "^10.0.27",
+    "discord.js": "^12.3.1",
     "emotion-theming": "^10.0.27",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -26,12 +25,11 @@
     "robotjs": "^0.6.0"
   },
   "scripts": {
-    "build": "yarn build-main && yarn build-renderer",
-    "build-main": "NODE_ENV=production webpack --mode production --config ./app/main/webpack.config.js",
+    "build": "yarn build-renderer",
     "build-renderer": "NODE_ENV=production webpack --mode production --config ./app/renderer/webpack.config.js",
-    "dev": "concurrently \"yarn dev-main\" \"yarn dev-renderer\"",
-    "dev-main": "NODE_ENV=development webpack --mode development --config ./app/main/webpack.config.js --inline --watch",
+    "dev": "yarn dev-renderer",
     "dev-renderer": "NODE_ENV=development webpack --mode development --config ./app/renderer/webpack.config.js --inline --watch",
+    "postinstall": "npm rebuild --runtime=electron --target=10.1.0 --disturl=https://atom.io/download/atom-shell --abi=64",
     "start": "electron ."
   }
 }
