@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { ConfigContext } from "./context/config";
 import Router from "./Router";
 import { getConfig } from "./utils/getConfig";
+import { ThemeProvider, CSSReset } from "@chakra-ui/core";
 
 const App = () => {
   const [config, setConfig] = useState(null);
@@ -20,9 +21,12 @@ const App = () => {
   }, [config]);
 
   return (
-    <ConfigContext.Provider value={{ config, setConfig }}>
-      <Router />
-    </ConfigContext.Provider>
+    <ThemeProvider>
+      <CSSReset />
+      <ConfigContext.Provider value={{ config, setConfig }}>
+        <Router />
+      </ConfigContext.Provider>
+    </ThemeProvider>
   );
 };
 

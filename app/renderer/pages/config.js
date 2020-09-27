@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { Redirect } from "react-router-dom";
 import { ConfigContext } from "../context/config";
+import { Box, Button, FormControl, FormLabel, Input } from "@chakra-ui/core";
 
 const Config = () => {
   const { config, setConfig } = useContext(ConfigContext);
@@ -25,41 +26,46 @@ const Config = () => {
   return config ? (
     <Redirect to="/" />
   ) : (
-    <div>
+    <Box p={4}>
       <form onSubmit={onSubmit}>
-        <section>
-          <label htmlFor="token">Token</label>
-          <input
+        <FormControl mt={2}>
+          <FormLabel htmlFor="token">Token</FormLabel>
+          <Input
             id="token"
             name="token"
+            placeholder="token"
             type="text"
             value={fields.token}
             onChange={onChange("token")}
           />
-        </section>
-        <section>
-          <label htmlFor="serverId">Server Id</label>
-          <input
+        </FormControl>
+        <FormControl mt={2}>
+          <FormLabel htmlFor="serverId">Server Id</FormLabel>
+          <Input
             id="serverId"
             name="serverId"
+            placeholder="serverId"
             type="text"
             value={fields.serverId}
             onChange={onChange("serverId")}
           />
-        </section>
-        <section>
-          <label htmlFor="channelId">Channel Id</label>
-          <input
+        </FormControl>
+        <FormControl mt={2}>
+          <FormLabel htmlFor="channelId">Channel Id</FormLabel>
+          <Input
             id="channelId"
             name="channelId"
+            placeholder="channelId"
             type="text"
             value={fields.channelId}
             onChange={onChange("channelId")}
           />
-        </section>
-        <button type="submit">Submit</button>
+        </FormControl>
+        <Button mt={4} variantColor="teal" type="submit">
+          Submit
+        </Button>
       </form>
-    </div>
+    </Box>
   );
 };
 
