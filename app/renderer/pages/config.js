@@ -1,19 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { Redirect } from "react-router-dom";
-import { getConfig } from "../utils/getConfig";
+import { ConfigContext } from "../context/config";
 
 const Config = () => {
-  const [config, setConfig] = useState(null);
+  const { config, setConfig } = useContext(ConfigContext);
+
   const [fields, setFields] = useState({
     token: "",
     serverId: "",
     channelId: "",
   });
-
-  useEffect(() => {
-    const config = getConfig();
-    setConfig(config);
-  }, []);
 
   const onChange = (field) => (e) =>
     setFields({ ...fields, [field]: e.target.value });
@@ -22,7 +18,6 @@ const Config = () => {
     e.stopPropagation();
 
     if (fields.token && fields.serverId && fields.channelId) {
-      localStorage.setItem("config", JSON.stringify(fields));
       setConfig(fields);
     }
   };
