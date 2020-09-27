@@ -1,3 +1,7 @@
+const robot = require("robotjs");
+
+robot.moveMouse(20, 20);
+
 const { app, BrowserWindow } = require("electron");
 
 let win = null;
